@@ -1,13 +1,96 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
+<html lang="pt-br">
+<head>
+    <!--
+    @name MetaTags SEO
+    @description Tags for SEO optimization
+    -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Attendance Hero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos voltados ao estudante e uma interface intuitiva, o Attendance Hero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.">
+    <meta name="keywords"
+          content="attendance, attendance tracking, attendance management, student attendance, class attendance, academic attendance, attendance hero">
+    <meta name="author" content="Attendance Hero">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ffffff">
+    <!--
+        @name Schema.org Markup
+        @parent MetaTags SEO
+    -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Attendance Hero",
+            "description": "Attendance Hero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos voltados ao estudante e uma interface intuitiva, o Attendance Hero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.",
+            "url": "https://www.attendancehero.com",
+            "image": "https://github.com/MrNullus/attendance-hero/blob/main/public/logos/main/iconPrimaryDark.svg",
+            "applicationCategory": "EducationApplication",
+            "operatingSystem": "Web",
+            "softwareVersion": "1.0",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Attendance Hero"
+            }
+        }
+    </script>
+    <!--
+        @name MetaTag Language
+        @description MetaTag Language for internationalization
+        @parent MetaTags SEO
+    -->
+    <meta property="og:locale" content="pt_BR">
+
+
+    <!--
+    @name Open Graph tags
+    @description Open Graph tags for social media sharing
+    -->
+    <meta property="og:title" content="Attendance Hero - Controle sua presença acadêmica">
+    <meta property="og:description"
+          content="Attendance Hero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos voltados ao estudante e uma interface intuitiva, o Attendance Hero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.attendancehero.com">
+    <meta property="og:image"
+          content="https://github.com/MrNullus/attendance-hero/blob/main/public/logos/main/iconPrimaryDark.svg">
+
+    <!--
+    @name Twitter Card tags
+    @description Twitter Card tags for social media sharing (deprecated)
+    -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@AttendanceHero">
+    <meta name="twitter:title" content="Attendance Hero - Controle sua presença acadêmica">
+    <meta name="twitter:description"
+          content="Attendance Hero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos voltados ao estudante e uma interface intuitiva, o Attendance Hero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.">
+    <meta name="twitter:image"
+          content="https://github.com/MrNullus/attendance-hero/blob/main/public/logos/main/iconPrimaryDark.svg">
+
+
+    <!--
+    @name Favicons
+    @description Favicon for the website and browser tab
+    -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+
+    <!--
+    @name Title
+    -->
+    <title>AttendanceHero</title>
+</head>
+<body>
+
+<!--
+@name Root
+@description The root component of the application. It renders the App component.
+-->
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
