@@ -7,12 +7,12 @@ import Auth from "../Auth/index.jsx";
 
 class Router {
     constructor() {
-        this.routesFinall = [];
+        this.routesFinal = [];
         this.init();
     }
 
     init() {
-        this.routesFinall = [
+        this.routesFinal = [
             // @group Guest
            ...RoutesGuest.getRoutes(),
 
@@ -22,7 +22,7 @@ class Router {
     }
 
     createRouter() {
-        return  createBrowserRouter(this.routesFinall);
+        return  createBrowserRouter(this.routesFinal);
     }
 }
 

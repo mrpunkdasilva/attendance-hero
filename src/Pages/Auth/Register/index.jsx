@@ -7,7 +7,7 @@ function Register() {
 
     return (
         <AuthTemplate>
-            <div className="form-auth-wrapper auth-login">
+            <div className="form-auth-wrapper auth-register">
                 <h1>
                     Cadastrar
                 </h1>
