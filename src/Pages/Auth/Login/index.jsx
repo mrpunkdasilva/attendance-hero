@@ -13,6 +13,7 @@ function Login() {
             <FormAuthWrapper
                 title={"Login"}
                 typeAuth={"login"}
+                action={"POST"}
                 handleFormAuth={()=>alert("asdasd")}
             />
         </AuthTemplate>
