@@ -1,28 +1,10 @@
 import React, { useRef } from 'react';
 import usePasswordVisibility from "./hooks/usePasswordVisibility.js";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import useHandleValidateForm from "./hooks/useHandleValidateForm.js";
 
 const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
     const [ iconPassword, showPassword, togglePasswordVisibility ] = usePasswordVisibility();
     const formRef = useRef( null );
-
-    const MySwal = withReactContent( Swal );
-    MySwal.fire( {
-        title : <p>Hello World</p>,
-        didOpen : () => {
-            // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-            MySwal.fire( {
-                icon : "error",
-                title : "Atenção",
-                text : "Este é um teste de formulário de login.",
-                confirmButtonText : "Continuar",
-                showCancelButton : false,
-                showCloseButton : false,
-            } )
-        },
-    } );
 
     return (
         <div className="form-auth-wrapper auth-login">
@@ -35,7 +17,7 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
             <form
                 action={ action }
                 className="form-control"
-                onSubmit={ handleFormAuth }
+                onSubmit={ () => handleFormAuth(formRef) }
                 ref={ formRef }
             >
                 <div className="form-group">
@@ -63,7 +45,7 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
                 <div className="form-group">
                     <input
                         className="input-field"
-                        type={ showPassword ? "password" : "text" }
+                        type={ showPassword ? "text" : "password" }
                         name="password"
                         placeholder="Senha"
                         required
@@ -87,10 +69,9 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
                     type="submit"
                     className="btn-auth-primary"
                     disabled={ false }
-                    onClick={ ( event ) => {
-                        // TODO: Implementar a função de login
-                        // event.preventDefault();
-                        alert( "Login efetuado com sucesso!" );
+                    onClick={ (event) => {
+                        event.preventDefault();
+                        useHandleValidateForm( formRef, typeAuth )
                     } }
                 >
                     { typeAuth.toLowerCase() === "login" ? "Login" : "Criar conta" }
@@ -101,7 +82,6 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
                 <button
                     type={ "button" }
                     className={ "btn-auth-secondary" }
-                    onClick={ () => useHandleValidateForm( formRef ) }
                 >
                     { typeAuth.toLowerCase() !== "login" ? "Login" : "Criar conta" }
                 </button>
