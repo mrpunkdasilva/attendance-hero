@@ -9,12 +9,11 @@ function Login() {
 
     return (
         <AuthTemplate>
-
             <FormAuthWrapper
                 title={"Login"}
                 typeAuth={"login"}
                 action={"POST"}
-                handleFormAuth={()=>alert("asdasd")}
+                handleFormAuth={()=> alert("asdasd")}
             />
         </AuthTemplate>
     );

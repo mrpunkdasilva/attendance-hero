@@ -14,42 +14,55 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
 
             <hr className={ "separator" }/>
 
+            <p>
+                <small>
+                    Para realizar o login, preencha todos campos abaixo.
+                </small>
+            </p>
+
             <form
                 action={ action }
                 className="form-control"
                 onSubmit={ () => handleFormAuth(formRef) }
                 ref={ formRef }
             >
+                {
+                    typeAuth === "register" && (
+                        <div className="form-group">
+                            <label htmlFor="name">* Nome</label>
+                            <input
+                                className="input-field"
+                                type="text"
+                                placeholder="Nome"
+                                name="name"
+                                required
+                                pattern="[a-zA-Z\s]{5,}"
+                                title="Por favor, informe um nome válido."
+                            />
+                        </div>
+                    )
+                }
                 <div className="form-group">
-                    <input
-                        className="input-field"
-                        type="text"
-                        placeholder="Nome"
-                        name="name"
-                        required
-                        pattern="[a-zA-Z\s-09]+"
-                        title="Por favor, informe um nome válido."
-                    />
-                </div>
-                <div className="form-group">
+                    <label htmlFor="name">* E-mail</label>
                     <input
                         className="input-field"
                         type="email"
                         placeholder="E-mail"
                         name="email"
                         required
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
                         title="Por favor, informe um e-mail válido."
                     />
                 </div>
                 <div className="form-group">
+                    <label htmlFor="name">* Password</label>
                     <input
                         className="input-field"
                         type={ showPassword ? "text" : "password" }
                         name="password"
                         placeholder="Senha"
                         required
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        pattern="(?=.*[a-zA-Z])(?=.*\d).{8,}"
                         title="Senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número."
                     />
 
