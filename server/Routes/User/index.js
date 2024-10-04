@@ -116,7 +116,7 @@ router.post( '/', UserController.create );
  *         name: user_id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -183,7 +183,7 @@ router.post( '/', UserController.create );
  *       type: object
  *       properties:
  *         id:
- *           type: string
+ *           type: integer
  *         name:
  *           type: string
  *         email:

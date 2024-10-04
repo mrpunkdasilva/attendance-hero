@@ -68,19 +68,55 @@ class UserController {
   // TODO: update
   async update( request, response ) {
     try {
-      const { user_id } = request.params;
+      const prisma = new PrismaClient();
+      const user_id = parseInt(request.params.user_id);
+      const { name, email, password, profile_picture, rule, status } = request.body;
 
-      if ( isNaN( user_id ) || user_id <= 0 ) {
+      // Check if required fields are provided
+      if ( !name || !email || !password ) {
         return response.status( 400 ).json( {
-          message : 'ID é um parametro somente númerico e obrigatório',
+          message : 'All fields are required',
           status : 400,
         } );
       }
 
-      const prisma = new PrismaClient();
+      // Check if user exists
+      const existingUser = await prisma.user.findUnique( {
+        where : {
+          user_id : user_id,
+        },
+      } );
 
+      if ( !existingUser ) {
+        return response.status( 404 ).json( {
+          message : 'User not found',
+          status : 404,
+        } );
+      }
 
-    } catch ( error ) {
+      // Update the user
+      const updatedUser = await prisma.user.update( {
+        where : {
+          user_id: user_id
+        },
+        data : {
+          name,
+          email,
+          password,
+          profile_picture,
+          rule,
+          status,
+        },
+      } );
+
+      return response.status( 200 ).json( {
+        message : 'User updated successfully',
+        status : 200,
+        user : user_id
+      } );
+
+    } catch
+      ( error ) {
       console.error( 'Error updating user:', error );
       return response.status( 501 ).json( {
         message : 'Erro ao atualizar o usuário',
@@ -94,4 +130,5 @@ class UserController {
   // TODO: get single
 }
 
-module.exports = new UserController();
+module
+  .exports = new UserController();
