@@ -4,8 +4,6 @@ import AuthTemplate from "../../../Templates/AuthTemplate/index.jsx";
 import FormAuthWrapper from "../../../components/FormAuthWrapper/index.jsx";
 
 function Register() {
-    const [ iconPassword, setIconPassword ] = useState( IconSentinel.getIcon( "eye-closed.svg" ) );
-
     return (
         <AuthTemplate>
             <FormAuthWrapper
