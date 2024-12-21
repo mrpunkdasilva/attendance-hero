@@ -1,10 +1,55 @@
 
 .auth-container {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
+  gap: 4rem;
 
   .brand {
     background: rgba(0, 0, 0, 0.96);
+    border-bottom: 4px solid #44D62C;
+
+    figure {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+
+      img {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+      }
+    }
   }
 
+  .form-auth {
+    display: flex;
+    place-items: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .form-polyfill {
+      display: block;
+      float: left;
+      clear: both;
+      z-index: -1;
+
+      background-image: url('/src/assets/images/polygon.png');
+      width: 100%;
+      height: 200px;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
 }

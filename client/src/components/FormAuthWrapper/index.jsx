@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import "./styles/main.scss";
 import usePasswordVisibility from "./hooks/usePasswordVisibility.js";
 import useHandleValidateForm from "./hooks/useHandleValidateForm.js"
@@ -13,11 +13,11 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
                 { title }
             </h1>
 
-            <hr className={ "separator" }/>
+            <div className={ "separator" }></div>
 
             <p>
                 <small>
-                    Para realizar o login, preencha todos campos abaixo.
+                    * Todos os campos com asteriscos são obrigatórios.
                 </small>
             </p>
 
@@ -88,17 +88,17 @@ const FormAuthWrapper = ( { title, typeAuth, action, handleFormAuth } ) => {
                         useHandleValidateForm( formRef, typeAuth )
                     } }
                 >
-                    { typeAuth.toLowerCase() === "login" ? "Login" : "Criar conta" }
+                    { typeAuth.toLowerCase() === "login" ? "Login" : "Sign up" }
                 </button>
 
-                <hr className={ "separator" }/>
+                <div className={ "separator" }></div>
 
                 <a
                     href={ `/${ typeAuth.toLowerCase() === "login"? "register" : "login" }` }
                     type={ "button" }
                     className={ "btn-auth-secondary" }
                 >
-                    { typeAuth.toLowerCase() !== "login" ? "Login" : "Criar conta" }
+                    { typeAuth.toLowerCase() === "login"? "Sign up" : "Login" }
                 </a>
             </form>
         </div>
