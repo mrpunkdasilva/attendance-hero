@@ -8,34 +8,59 @@
 .form-control {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   align-content: center;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 2rem;
 
+ p {
+   text-align: justify;
+ }
+
+
+  .container-wrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    width: 100%;
+    align-content: space-between;
+    flex-direction: column;
+  }
+
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
     width: 100%;
-    position: relative;
+    height: 74.9px;
+  }
 
-    input[name="password"] {
-      width: calc(100% - 40px);
+  .form-group-password {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+
+    .group {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+
+      input[name="password"] {
+        width: calc(100% - 40px);
+      }
     }
 
     .btn-visibility-password {
-      position: relative;
       width: 40px;
       height: 40px;
-      top: -56px;
-      left: 260px;
 
       background: #0A0A0AFF;
       border: none;
       border-radius: 3px;
     }
+
   }
 }
