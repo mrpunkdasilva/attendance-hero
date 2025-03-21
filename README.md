@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/MrNullus/attendance-hero/blob/main/client/public/logos/icon/iconPrimary.svg" width="500px" height="300px" />
+<img src="./.github/iconPrimaryDark.svg" width="500px" height="300px" />
 </p>
 
 ```       _   _                 _                      _    _                

@@ -1,4 +1,4 @@
-<p align="center">
+    <p align="center">
      
 <img src="https://github.com/MrNullus/attendance-hero/blob/92bf9cdb6bbe1e2ca933547c3109ffb174f62d27/public/logos/icon/iconPrimary.svg" width="500px" height="180px" />
 

@@ -9,8 +9,17 @@ import Route from "../Route.js";
 import Register from "../../Pages/Auth/Register/index.jsx";
 import Login from "../../Pages/Auth/Login/index.jsx";
 
-
+/**
+ * Represents a collection of routes for the authentication module.
+ * Extends the base Route class.
+ */
 class RoutesAuth extends Route {
+    /**
+     * An array of route objects. Each object represents a route and contains a path and an element.
+     * @type {Array}
+     * @property {string} path - The path of the route.
+     * @property {React.ReactElement} element - The React component to render for the route.
+     */
     static routes = [
         {
             path: "/register",

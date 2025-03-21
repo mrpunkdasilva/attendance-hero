@@ -1,5 +1,14 @@
 import Checker from "../../../utils/Checker.js";
 
+/**
+ * This function handles form validation for user authentication.
+ * It checks if the required fields are filled and validates the email and password based on the specified authentication type.
+ *
+ * @param {React.RefObject<HTMLFormElement>} formRef - A reference to the form element.
+ * @param {string} typeAuth - The type of authentication ("register" or "login").
+ *
+ * @returns {void}
+ */
 const useHandleValidateForm = ( formRef, typeAuth ) => {
     const form = formRef;
     const inputsForm = form.current.getElementsByTagName( "input" );

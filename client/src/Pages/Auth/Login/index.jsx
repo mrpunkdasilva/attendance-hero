@@ -1,6 +1,4 @@
-import IconSentinel from "../../../utils/IconSentinel.jsx";
 import AuthTemplate from "../../../Templates/AuthTemplate/index.jsx";
-import { useState } from "react";
 import FormAuthWrapper from "../../../components/FormAuthWrapper/index.jsx";
 
 
