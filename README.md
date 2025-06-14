@@ -10,6 +10,92 @@
  /_/    \_\__|\__\___|_| |_|\__,_|\__,_|_| |_|\___\___|_|  |_|\___|_|  \___/ 
 ```
 
+# AttendanceHero
 
-AttendanceHero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos voltados ao 
-estudante e uma interface intuitiva, o AttendanceHero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.
+AttendanceHero is a web application that allows students to manage and track their classroom attendance. With student-focused features and an intuitive interface, AttendanceHero helps students stay organized and in control of their academic attendance.
+
+## Project Structure
+
+The project is divided into two main parts:
+
+- **Client**: React application built with Vite
+- **Server**: Express.js API with Prisma ORM
+
+## Technologies
+
+### Frontend
+- React 18
+- React Router
+- Vite
+- SASS
+- SweetAlert2
+
+### Backend
+- Node.js
+- Express.js
+- Prisma ORM
+- Swagger for API documentation
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- Docker (optional)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/attendance-hero.git
+cd attendance-hero
+```
+
+2. Install dependencies:
+```bash
+# Install client dependencies
+cd client
+npm install
+
+# Install server dependencies
+cd ../server
+npm install
+```
+
+3. Set up environment variables:
+```bash
+# In the server directory
+cp .env.example .env
+# Edit .env with your database credentials
+```
+
+4. Start the development servers:
+```bash
+# Start the client
+cd client
+npm run dev
+
+# Start the server
+cd ../server
+npm run dev
+```
+
+## Docker Setup
+
+You can also run the application using Docker:
+
+```bash
+# Build and start the containers
+docker-compose up -d
+
+# Stop the containers
+docker-compose down
+```
+
+## API Documentation
+
+API documentation is available via Swagger UI at `/api-docs` when the server is running.
+
+## Author
+
+Mr Punk da Silva
