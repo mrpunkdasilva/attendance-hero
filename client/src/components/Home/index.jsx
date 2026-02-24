@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { semestersData } from '../../utils/mockData.js';
 import logo from '../../assets/logos/main/AttendaceHero.svg';
+import SwalFire from '../../utils/SwalFire.js';
 import './styles.scss';
 
 const Home = () => {
@@ -10,6 +11,50 @@ const Home = () => {
   const [activeSemesterId, setActiveSemesterId] = useState(4);
 
   const activeSemester = data.find(s => s.id === activeSemesterId);
+
+  const getRiskLevel = (percentage) => {
+    if (percentage >= 35) return 'wf';
+    if (percentage >= 29) return 'high';
+    if (percentage >= 21) return 'medium';
+    if (percentage >= 4) return 'low';
+    return 'none';
+  };
+
+  const toggleAbsence = (semesterId, disciplineName, absenceIndex) => {
+    let alerted = false;
+    const newData = data.map(semester => {
+      if (semester.id === semesterId) {
+        return {
+          ...semester,
+          disciplines: semester.disciplines.map(discipline => {
+            if (discipline.name === disciplineName) {
+              const newAbsences = [...discipline.absences];
+              const wasAbsent = newAbsences[absenceIndex];
+              newAbsences[absenceIndex] = !newAbsences[absenceIndex];
+              
+              // Check risk after change
+              const currentAbsences = newAbsences.filter(Boolean).length;
+              const percentage = (currentAbsences / discipline.totalClasses) * 100;
+              const risk = getRiskLevel(percentage);
+
+              if (!wasAbsent && (risk === 'high' || risk === 'wf') && !alerted) {
+                const message = risk === 'wf' 
+                  ? `Você atingiu o limite de 35% de faltas em ${disciplineName}. Risco de reprovação imediata!` 
+                  : `Atenção! Você está com risco ALTO em ${disciplineName}. Faltas restantes: ${discipline.maxAbsences - currentAbsences}.`;
+                SwalFire.error("Alerta de Frequência", message);
+                alerted = true;
+              }
+
+              return { ...discipline, absences: newAbsences };
+            }
+            return discipline;
+          })
+        };
+      }
+      return semester;
+    });
+    setData(newData);
+  };
 
   // Gamification Logic: Calculate Global Rank
   const globalStats = useMemo(() => {
@@ -24,43 +69,15 @@ const Home = () => {
     const percentage = totalClasses > 0 ? (totalAbsences / totalClasses) * 100 : 0;
     
     let rank = 'S';
-    let color = '#44D62C'; // Green
-    if (percentage >= 35) { rank = 'F'; color = '#9C27B0'; } // Purple/Fail
-    else if (percentage >= 29) { rank = 'D'; color = '#FF5252'; } // Red
-    else if (percentage >= 21) { rank = 'C'; color = '#FFB74D'; } // Orange
-    else if (percentage >= 11) { rank = 'B'; color = '#FFEB3B'; } // Yellow
-    else if (percentage >= 5) { rank = 'A'; color = '#64FFDA'; } // Cyan
+    let color = '#44D62C';
+    if (percentage >= 35) { rank = 'F'; color = '#9C27B0'; }
+    else if (percentage >= 29) { rank = 'D'; color = '#FF5252'; }
+    else if (percentage >= 21) { rank = 'C'; color = '#FFB74D'; }
+    else if (percentage >= 11) { rank = 'B'; color = '#FFEB3B'; }
+    else if (percentage >= 5) { rank = 'A'; color = '#64FFDA'; }
 
     return { rank, percentage: percentage.toFixed(1), color, totalAbsences, totalClasses };
   }, [activeSemester]);
-
-  const getRiskLevel = (percentage) => {
-    if (percentage >= 35) return 'wf';
-    if (percentage >= 29) return 'high';
-    if (percentage >= 21) return 'medium';
-    if (percentage >= 4) return 'low';
-    return 'none';
-  };
-
-  const toggleAbsence = (semesterId, disciplineName, absenceIndex) => {
-    const newData = data.map(semester => {
-      if (semester.id === semesterId) {
-        return {
-          ...semester,
-          disciplines: semester.disciplines.map(discipline => {
-            if (discipline.name === disciplineName) {
-              const newAbsences = [...discipline.absences];
-              newAbsences[absenceIndex] = !newAbsences[absenceIndex];
-              return { ...discipline, absences: newAbsences };
-            }
-            return discipline;
-          })
-        };
-      }
-      return semester;
-    });
-    setData(newData);
-  };
 
   return (
     <div className="home-container">
@@ -71,11 +88,10 @@ const Home = () => {
         transition={{ duration: 0.8, type: 'spring' }}
       >
         <img src={logo} alt="Attendance Hero" className="main-logo" />
-        <p className="subtitle">Cyberpunk Student Dashboard - Jala U</p>
+        <p className="subtitle">Your attendance, your control.</p>
       </motion.header>
 
       <div className="dashboard-grid">
-        {/* 3D Holographic ID Card */}
         <Tilt 
           className="hero-card-tilt" 
           perspective={1000} 
@@ -102,7 +118,6 @@ const Home = () => {
                 <strong>{globalStats.percentage}%</strong>
               </div>
             </div>
-            <div className="hologram-effect"></div>
           </div>
         </Tilt>
 
@@ -110,7 +125,7 @@ const Home = () => {
           {data.map(semester => (
             <motion.button
               key={semester.id}
-              whileHover={{ scale: 1.05, boxShadow: "0px 0px 8px rgb(68, 214, 44)" }}
+              whileHover={{ scale: 1.05, boxShadow: `0px 0px 8px ${globalStats.color}` }}
               whileTap={{ scale: 0.95 }}
               className={`tab-btn ${activeSemesterId === semester.id ? 'active' : ''}`}
               onClick={() => setActiveSemesterId(semester.id)}
