@@ -6,27 +6,58 @@ import logo from '../../assets/logos/main/AttendaceHero.svg';
 import SwalFire from '../../utils/SwalFire.js';
 import './styles.scss';
 
-const Home = () => {
-  // Initialize state from localStorage or default mock data
-  const [data, setData] = useState(() => {
-    const savedData = localStorage.getItem('attendance-hero-data');
-    if (!savedData) return semestersData;
-    
-    const parsedSaved = JSON.parse(savedData);
-    // Merge logic: ensure all semesters from mockData are present
-    const mergedData = semestersData.map(mockSemester => {
-      const savedSemester = parsedSaved.find(s => s.id === mockSemester.id);
-      return savedSemester || mockSemester;
-    });
-    return mergedData;
-  });
-  
-  const [activeSemesterId, setActiveSemesterId] = useState(4);
+import React, { useState, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
+import { semestersData } from '../../utils/mockData.js';
+import logo from '../../assets/logos/main/AttendaceHero.svg';
+import SwalFire from '../../utils/SwalFire.js';
+import { db } from '../../services/firebase.js';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import './styles.scss';
 
-  // Persistence: Save to localStorage whenever data changes
+const GUEST_USER_ID = "guest_user_mvp";
+
+const Home = () => {
+  const [data, setData] = useState(semestersData);
+  const [activeSemesterId, setActiveSemesterId] = useState(4);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Persistence: Load from Firestore on mount
   useEffect(() => {
-    localStorage.setItem('attendance-hero-data', JSON.stringify(data));
-  }, [data]);
+    const loadData = async () => {
+      try {
+        const docRef = doc(db, "userAttendance", GUEST_USER_ID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const savedData = docSnap.data().semesters;
+          // Merge logic: ensure all semesters from mockData are present
+          const mergedData = semestersData.map(mockSemester => {
+            const savedSemester = savedData.find(s => s.id === mockSemester.id);
+            return savedSemester ? { ...mockSemester, ...savedSemester } : mockSemester;
+          });
+          setData(mergedData);
+        }
+      } catch (error) {
+        console.error("Error loading from Firestore:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Persistence: Save to Firestore
+  const saveToFirestore = async (newData) => {
+    try {
+      const docRef = doc(db, "userAttendance", GUEST_USER_ID);
+      await setDoc(docRef, { semesters: newData }, { merge: true });
+    } catch (error) {
+      console.error("Error saving to Firestore:", error);
+    }
+  };
 
   const activeSemester = data.find(s => s.id === activeSemesterId);
 
@@ -38,7 +69,7 @@ const Home = () => {
     return 'none';
   };
 
-  const toggleAbsence = (semesterId, disciplineName, absenceIndex) => {
+  const toggleAbsence = async (semesterId, disciplineName, absenceIndex) => {
     let alerted = false;
     const newData = data.map(semester => {
       if (semester.id === semesterId) {
@@ -50,7 +81,6 @@ const Home = () => {
               const wasAbsent = newAbsences[absenceIndex];
               newAbsences[absenceIndex] = !newAbsences[absenceIndex];
               
-              // Check risk after change
               const currentAbsences = newAbsences.filter(Boolean).length;
               const percentage = (currentAbsences / discipline.totalClasses) * 100;
               const risk = getRiskLevel(percentage);
@@ -71,8 +101,46 @@ const Home = () => {
       }
       return semester;
     });
+    
     setData(newData);
+    await saveToFirestore(newData);
   };
+
+  // Gamification Logic: Calculate Global Rank
+  const globalStats = useMemo(() => {
+    let totalClasses = 0;
+    let totalAbsences = 0;
+    
+    activeSemester.disciplines.forEach(d => {
+      totalClasses += d.totalClasses;
+      totalAbsences += d.absences.filter(Boolean).length;
+    });
+
+    const percentage = totalClasses > 0 ? (totalAbsences / totalClasses) * 100 : 0;
+    
+    let rank = 'S';
+    let color = '#44D62C';
+    if (percentage >= 35) { rank = 'F'; color = '#9C27B0'; }
+    else if (percentage >= 29) { rank = 'D'; color = '#FF5252'; }
+    else if (percentage >= 21) { rank = 'C'; color = '#FFB74D'; }
+    else if (percentage >= 11) { rank = 'B'; color = '#FFEB3B'; }
+    else if (percentage >= 5) { rank = 'A'; color = '#64FFDA'; }
+
+    return { rank, percentage: percentage.toFixed(1), color, totalAbsences, totalClasses };
+  }, [activeSemester]);
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          className="loader"
+        />
+        <p>Acessando Central de Comando...</p>
+      </div>
+    );
+  }
 
   // Gamification Logic: Calculate Global Rank
   const globalStats = useMemo(() => {
