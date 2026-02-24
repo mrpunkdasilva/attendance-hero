@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { semestersData } from '../../utils/mockData.js';
@@ -7,8 +7,18 @@ import SwalFire from '../../utils/SwalFire.js';
 import './styles.scss';
 
 const Home = () => {
-  const [data, setData] = useState(semestersData);
+  // Initialize state from localStorage or default mock data
+  const [data, setData] = useState(() => {
+    const savedData = localStorage.getItem('attendance-hero-data');
+    return savedData ? JSON.parse(savedData) : semestersData;
+  });
+  
   const [activeSemesterId, setActiveSemesterId] = useState(4);
+
+  // Persistence: Save to localStorage whenever data changes
+  useEffect(() => {
+    localStorage.setItem('attendance-hero-data', JSON.stringify(data));
+  }, [data]);
 
   const activeSemester = data.find(s => s.id === activeSemesterId);
 
