@@ -1,4 +1,5 @@
 import Route from "../Route";
+import Home from "../../components/Home/index.jsx";
 
 /**
  * Represents a collection of guest routes for the application.
@@ -19,7 +20,7 @@ class RoutesGuest extends Route {
     static routes = [
         {
             path: "/",
-            element: <h1>Hello</h1>,
+            element: <Home/>,
         }
     ]
 }

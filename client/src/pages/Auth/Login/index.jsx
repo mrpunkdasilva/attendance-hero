@@ -1,4 +1,4 @@
-import AuthTemplate from "../../../Templates/AuthTemplate/index.jsx";
+import AuthTemplate    from "../../../templates/AuthTemplate/index.jsx";
 import FormAuthWrapper from "../../../components/FormAuthWrapper/index.jsx";
 
 

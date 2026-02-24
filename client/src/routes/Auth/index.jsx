@@ -6,8 +6,8 @@ import Route from "../Route.js";
 /**
  * @name Pages
  */
-import Register from "../../Pages/Auth/Register/index.jsx";
-import Login from "../../Pages/Auth/Login/index.jsx";
+import Register from "../../pages/Auth/Register/index.jsx";
+import Login    from "../../pages/Auth/Login/index.jsx";
 
 /**
  * Represents a collection of routes for the authentication module.
