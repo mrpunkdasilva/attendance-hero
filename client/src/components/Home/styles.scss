@@ -2,68 +2,158 @@
 
 .home-container {
   min-height: 100vh;
-  background-color: #0A0A0A;
+  background: radial-gradient(circle at 50% 10%, #1a1a1a 0%, #050505 100%);
   color: #fff;
   font-family: 'Lexend', sans-serif;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 
   .home-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
 
     .main-logo {
-      width: 250px;
+      width: 280px;
       height: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px rgba(68, 214, 44, 0.2));
     }
 
     .subtitle {
       color: #44D62C;
       font-family: 'Comfortaa', cursive;
-      letter-spacing: 1px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: bold;
-      border-bottom: 2px solid #44D62C;
-      padding-bottom: 0.5rem;
+      opacity: 0.8;
+      text-shadow: 0 0 10px rgba(68, 214, 44, 0.5);
+    }
+  }
+
+  .dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  /* --- 3D Hero Card --- */
+  .hero-card-tilt {
+    transform-style: preserve-3d;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .hero-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+    transform-style: preserve-3d;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--rank-color);
+      box-shadow: 0 0 15px var(--rank-color);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      font-size: 0.7rem;
+      color: #888;
+      letter-spacing: 2px;
+      transform: translateZ(20px);
+    }
+
+    .rank-display {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      transform: translateZ(40px);
+
+      .rank-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 0.2rem;
+      }
+
+      .rank-value {
+        font-size: 5rem;
+        font-weight: 900;
+        line-height: 1;
+        font-family: 'Comfortaa', cursive;
+        text-shadow: 0 0 30px currentColor;
+      }
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1rem;
+      transform: translateZ(30px);
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        span { font-size: 0.65rem; color: #888; margin-bottom: 4px; }
+        strong { font-size: 1.2rem; color: #fff; }
+      }
     }
   }
 
   .semester-tabs {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    background: #141414;
-    padding: 0.4rem;
-    border-radius: 8px;
-    border: 1px solid rgba(68, 214, 44, 0.2);
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
 
     .tab-btn {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: transparent;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.3);
       color: #888;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 8px;
       font-weight: 600;
       font-family: 'Lexend', sans-serif;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
 
       &:hover {
+        background: rgba(255, 255, 255, 0.05);
         color: #fff;
-        background: #1a1a1a;
+        border-color: rgba(255, 255, 255, 0.2);
       }
 
       &.active {
-        background: #44D62C;
-        color: #0A0A0A;
+        background: rgba(68, 214, 44, 0.1);
+        color: #44D62C;
+        border-color: #44D62C;
+        box-shadow: 0 0 15px rgba(68, 214, 44, 0.15);
       }
     }
   }
@@ -71,13 +161,15 @@
   .attendance-content {
     width: 100%;
     max-width: 1300px;
+    z-index: 5;
 
-    .table-wrapper {
-      background: #111;
-      border-radius: 8px;
+    .glass-panel {
+      background: rgba(17, 17, 17, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
       overflow-x: auto;
-      border: 2px solid rgba(0, 0, 0, 0.2);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
 
     .attendance-table {
@@ -87,58 +179,57 @@
       min-width: 1000px;
 
       th {
-        background: #0A0A0A;
-        padding: 1rem;
+        padding: 1.2rem;
         color: #44D62C;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         letter-spacing: 1px;
-        border-bottom: 3px solid #44D62C;
+        border-bottom: 1px solid rgba(68, 214, 44, 0.3);
+        background: rgba(0,0,0,0.2);
       }
 
       td {
-        padding: 0.8rem 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       }
 
       .meta-col { text-align: center; }
-      .meta-cell { text-align: center; color: #666; font-size: 0.85rem; }
+      .meta-cell { text-align: center; color: #666; font-size: 0.9rem; font-family: monospace; }
 
       .discipline-name {
         font-weight: 400;
-        color: #fff;
+        color: #eee;
         font-family: 'Comfortaa', cursive;
-        width: 20%;
-        font-size: 0.9rem;
+        width: 25%;
+        font-size: 0.95rem;
       }
 
       .absence-cell {
         text-align: center;
         cursor: pointer;
-        transition: all 0.2s ease;
         user-select: none;
 
         .status-indicator {
-          font-size: 1.1rem;
-          color: #222;
+          font-size: 1.2rem;
+          color: #333;
+          display: inline-block;
         }
 
-        &:hover:not(.is-locked) {
-          background: rgba(68, 214, 44, 0.05);
+        &:hover:not(.is-locked) .status-indicator {
+          color: #fff;
         }
 
         &.is-absent {
           .status-indicator {
             color: #44D62C;
-            text-shadow: 0 0 10px rgba(68, 214, 44, 0.4);
+            text-shadow: 0 0 8px rgba(68, 214, 44, 0.6);
           }
         }
 
         &.is-locked {
           cursor: not-allowed;
-          background: rgba(0, 0, 0, 0.2);
-          .status-indicator { color: #111; font-size: 0.8rem; }
+          opacity: 0.3;
         }
       }
 
@@ -146,45 +237,63 @@
         text-align: center;
         font-weight: bold;
         color: #fff;
+        font-size: 1.1rem;
       }
 
       .status-cell {
         width: 140px;
         .status-info {
           font-size: 0.7rem;
-          font-weight: bold;
-          margin-bottom: 4px;
+          font-weight: 700;
+          margin-bottom: 6px;
           text-align: right;
+          letter-spacing: 0.5px;
         }
       }
 
-      /* Risk Colors */
-      .risk-low { color: #44D62C; .progress-bar { background: #44D62C; } }
-      .risk-medium { color: #FFB74D; .progress-bar { background: #FFB74D; } }
-      .risk-high { color: #FF5252; .progress-bar { background: #FF5252; } }
+      /* Risk Colors & Effects */
+      .risk-low { 
+        color: #44D62C; 
+        .progress-bar { background: #44D62C; box-shadow: 0 0 10px rgba(68, 214, 44, 0.4); } 
+      }
+      .risk-medium { 
+        color: #FFB74D; 
+        .progress-bar { background: #FFB74D; box-shadow: 0 0 10px rgba(255, 183, 77, 0.4); } 
+      }
+      .risk-high { 
+        color: #FF5252; 
+        .progress-bar { background: #FF5252; box-shadow: 0 0 10px rgba(255, 82, 82, 0.4); } 
+        .discipline-name { color: #ffcccc; }
+      }
       .risk-wf { 
-        color: #9C27B0; 
-        .progress-bar { background: #9C27B0; }
-        font-weight: 900;
-        text-shadow: 0 0 5px rgba(156, 39, 176, 0.5);
+        color: #E040FB; 
+        .progress-bar { background: #E040FB; box-shadow: 0 0 15px rgba(224, 64, 251, 0.6); }
+        .discipline-name { text-decoration: line-through; color: #666; }
+        background: rgba(224, 64, 251, 0.05);
       }
 
       .progress-mini {
         width: 100%;
-        height: 4px;
-        background: #222;
-        border-radius: 2px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
         overflow: hidden;
 
         .progress-bar {
           height: 100%;
-          transition: width 0.3s ease;
+          border-radius: 3px;
         }
       }
 
       tr:hover td {
-        background: #161616;
+        background: rgba(255, 255, 255, 0.02);
       }
     }
   }
 }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #44D62C; }
