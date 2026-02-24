@@ -10,7 +10,15 @@ const Home = () => {
   // Initialize state from localStorage or default mock data
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem('attendance-hero-data');
-    return savedData ? JSON.parse(savedData) : semestersData;
+    if (!savedData) return semestersData;
+    
+    const parsedSaved = JSON.parse(savedData);
+    // Merge logic: ensure all semesters from mockData are present
+    const mergedData = semestersData.map(mockSemester => {
+      const savedSemester = parsedSaved.find(s => s.id === mockSemester.id);
+      return savedSemester || mockSemester;
+    });
+    return mergedData;
   });
   
   const [activeSemesterId, setActiveSemesterId] = useState(4);
