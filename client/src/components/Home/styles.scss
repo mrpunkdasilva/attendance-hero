@@ -290,11 +290,11 @@
 
       .row-risk-wf, .risk-wf { 
         --current-risk-color: #E040FB;
+        background: rgba(224, 64, 251, 0.05);
         color: var(--current-risk-color);
         .progress-bar { background: var(--current-risk-color); box-shadow: 0 0 15px rgba(224, 64, 251, 0.6); }
         .absence-cell.is-absent .status-indicator { color: var(--current-risk-color); text-shadow: 0 0 8px rgba(224, 64, 251, 0.6); }
         .discipline-name { text-decoration: line-through; color: #666; }
-        background: rgba(224, 64, 251, 0.05);
       }
 
       .progress-mini {
@@ -364,7 +364,7 @@
 }
 
 /* Scrollbar styling */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 12px; height: 4px; }
 ::-webkit-scrollbar-track { background: #0A0A0A; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #f1ecec; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #44D62C; }

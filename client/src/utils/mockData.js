@@ -1,5 +1,46 @@
 export const semestersData = [
   {
+    id: 1,
+    name: "Term 1",
+    disciplines: [
+      { name: "Lógica", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Programação 1", totalClasses: 24, maxAbsences: 8, absences: Array(8).fill(false) },
+      { name: "História da Engenharia de Software", totalClasses: 8, maxAbsences: 2, absences: Array(2).fill(false) },
+      { name: "Sistemas Operacionais 1", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Matemática Discreta", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Banco de Dados 1", totalClasses: 24, maxAbsences: 8, absences: Array(8).fill(false) },
+      { name: "Desenvolvimento de Software 1", totalClasses: 30, maxAbsences: 10, absences: Array(10).fill(false) },
+      { name: "Cálculo 1", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+    ],
+  },
+  {
+    id: 2,
+    name: "Term 2",
+    disciplines: [
+      { name: "Álgebra Linear", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Programação 2", totalClasses: 30, maxAbsences: 10, absences: Array(10).fill(false) },
+      { name: "Sistemas Operacionais 2", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Banco de Dados 2", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Desenvolvimento de Software 2", totalClasses: 30, maxAbsences: 10, absences: Array(10).fill(false) },
+      { name: "Comunicação 1", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Cálculo 2", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+    ],
+  },
+  {
+    id: 3,
+    name: "Term 3",
+    disciplines: [
+      { name: "Programação 3", totalClasses: 25, maxAbsences: 8, absences: Array(8).fill(false) },
+      { name: "Comunicação 2", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Engenharia de Qualidade de Software 1", totalClasses: 17, maxAbsences: 5, absences: Array(5).fill(false) },
+      { name: "Desenvolvimento de Software 3", totalClasses: 30, maxAbsences: 10, absences: Array(10).fill(false) },
+      { name: "Redes de Computadores 1", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Engenharia de Qualidade de Software 2", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Estatística", totalClasses: 23, maxAbsences: 7, absences: Array(7).fill(false) },
+      { name: "Escrita e Composição 1", totalClasses: 17, maxAbsences: 5, absences: Array(5).fill(false) },
+    ],
+  },
+  {
     id: 4,
     name: "Term 4",
     disciplines: [
