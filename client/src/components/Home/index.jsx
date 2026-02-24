@@ -4,14 +4,6 @@ import Tilt from 'react-parallax-tilt';
 import { semestersData } from '../../utils/mockData.js';
 import logo from '../../assets/logos/main/AttendaceHero.svg';
 import SwalFire from '../../utils/SwalFire.js';
-import './styles.scss';
-
-import React, { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
-import { semestersData } from '../../utils/mockData.js';
-import logo from '../../assets/logos/main/AttendaceHero.svg';
-import SwalFire from '../../utils/SwalFire.js';
 import { db } from '../../services/firebase.js';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import './styles.scss';
@@ -108,6 +100,8 @@ const Home = () => {
 
   // Gamification Logic: Calculate Global Rank
   const globalStats = useMemo(() => {
+    if (!activeSemester) return { rank: '-', percentage: '0', color: '#fff', totalAbsences: 0, totalClasses: 0 };
+    
     let totalClasses = 0;
     let totalAbsences = 0;
     
@@ -141,29 +135,6 @@ const Home = () => {
       </div>
     );
   }
-
-  // Gamification Logic: Calculate Global Rank
-  const globalStats = useMemo(() => {
-    let totalClasses = 0;
-    let totalAbsences = 0;
-    
-    activeSemester.disciplines.forEach(d => {
-      totalClasses += d.totalClasses;
-      totalAbsences += d.absences.filter(Boolean).length;
-    });
-
-    const percentage = totalClasses > 0 ? (totalAbsences / totalClasses) * 100 : 0;
-    
-    let rank = 'S';
-    let color = '#44D62C';
-    if (percentage >= 35) { rank = 'F'; color = '#9C27B0'; }
-    else if (percentage >= 29) { rank = 'D'; color = '#FF5252'; }
-    else if (percentage >= 21) { rank = 'C'; color = '#FFB74D'; }
-    else if (percentage >= 11) { rank = 'B'; color = '#FFEB3B'; }
-    else if (percentage >= 5) { rank = 'A'; color = '#64FFDA'; }
-
-    return { rank, percentage: percentage.toFixed(1), color, totalAbsences, totalClasses };
-  }, [activeSemester]);
 
   return (
     <div className="home-container">
