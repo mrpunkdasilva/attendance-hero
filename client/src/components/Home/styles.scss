@@ -43,23 +43,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
     width: 100%;
-    max-width: 800px;
-
-    @media (min-width: 1024px) {
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-end;
-    }
+    max-width: 400px; /* Limitando a largura para manter os termos alinhados com o card */
   }
 
   /* --- 3D Hero Card --- */
   .hero-card-tilt {
     transform-style: preserve-3d;
     width: 100%;
-    max-width: 350px;
   }
 
   .hero-card {
@@ -67,7 +60,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 16px;
-    padding: 1.2rem;
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
@@ -84,7 +77,7 @@
     .card-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       font-size: 0.6rem;
       color: #888;
       letter-spacing: 2px;
@@ -93,18 +86,18 @@
 
     .rank-display {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       transform: translateZ(40px);
 
       .rank-label {
         display: block;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         color: #666;
         margin-bottom: 0.2rem;
       }
 
       .rank-value {
-        font-size: clamp(3.5rem, 10vw, 5rem);
+        font-size: 5rem;
         font-weight: 900;
         line-height: 1;
         font-family: 'Comfortaa', cursive;
@@ -116,7 +109,7 @@
       display: flex;
       justify-content: space-around;
       border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 0.8rem;
+      padding-top: 1rem;
       transform: translateZ(30px);
 
       .stat {
@@ -124,31 +117,25 @@
         flex-direction: column;
         align-items: center;
         
-        span { font-size: 0.6rem; color: #888; margin-bottom: 2px; }
-        strong { font-size: 1rem; color: #fff; }
+        span { font-size: 0.65rem; color: #888; margin-bottom: 4px; }
+        strong { font-size: 1.1rem; color: #fff; }
       }
     }
   }
 
   .semester-tabs {
     display: flex;
-    gap: 0.6rem;
-    justify-content: flex-start;
-    overflow-x: auto;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
     width: 100%;
     padding: 0.5rem;
-    scrollbar-width: none; /* Firefox */
-    
-    &::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
-    @media (min-width: 768px) {
-      justify-content: center;
-      overflow-x: visible;
-    }
 
     .tab-btn {
-      padding: 0.6rem 1.2rem;
-      white-space: nowrap;
+      padding: 0.8rem 1.5rem;
+      width: auto;
+      text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.3);
       color: #888;
@@ -156,13 +143,14 @@
       border-radius: 8px;
       font-weight: 600;
       font-family: 'Lexend', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
 
       &:hover {
         background: rgba(255, 255, 255, 0.05);
         color: #fff;
+        border-color: rgba(255, 255, 255, 0.2);
       }
 
       &.active {
@@ -196,7 +184,7 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      min-width: 900px; /* Garante que a tabela não esmague no mobile */
+      min-width: 900px;
 
       th {
         padding: 1rem;
@@ -364,7 +352,7 @@
 }
 
 /* Scrollbar styling */
-::-webkit-scrollbar { width: 12px; height: 4px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #0A0A0A; }
-::-webkit-scrollbar-thumb { background: #f1ecec; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #44D62C; }
