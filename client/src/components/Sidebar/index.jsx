@@ -12,12 +12,7 @@ const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
   ].filter(item => item.enabled);
 
   return (
-    <motion.aside 
-      className={`sidebar ${className}`}
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.8, type: 'spring' }}
-    >
+    <aside className={`sidebar ${className}`}>
       <div className="sidebar-menu">
         {menuItems.map((item) => (
           <button 
@@ -34,7 +29,7 @@ const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
         <LogOut size={20} />
         <span>Logout</span>
       </button>
-    </motion.aside>
+    </aside>
   );
 };
 
