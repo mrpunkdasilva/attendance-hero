@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthTemplate    from "../../../templates/AuthTemplate/index.jsx";
 import FormAuthWrapper from "../../../components/FormAuthWrapper/index.jsx";
 import { registerUser } from '../../../services/authService.js';
 import SwalFire from '../../../utils/SwalFire.js';
+import { FEATURES } from '../../../config/features.js';
 
 function Register() {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!FEATURES.ENABLE_SIGNUP) {
+            navigate('/auth/login');
+        }
+    }, [navigate]);
+
     const handleRegister = async ({ email, password }) => {
+        if (!FEATURES.ENABLE_SIGNUP) return;
         try {
             await registerUser(email, password);
             SwalFire.success("Sucesso", "Usuário registrado com sucesso! Faça login para continuar.");
-            navigate('/login'); // Redirect to login after successful registration
+            navigate('/auth/login'); // Redirect to login after successful registration
         } catch (error) {
             let errorMessage = "Ocorreu um erro ao registrar. Tente novamente.";
             if (error.code === 'auth/email-already-in-use') {
@@ -26,6 +34,10 @@ function Register() {
             console.error("Firebase registration error:", error);
         }
     };
+
+    if (!FEATURES.ENABLE_SIGNUP) {
+        return null;
+    }
 
     return (
         <AuthTemplate>

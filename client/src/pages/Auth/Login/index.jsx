@@ -4,12 +4,14 @@ import AuthTemplate    from "../../../templates/AuthTemplate/index.jsx";
 import FormAuthWrapper from "../../../components/FormAuthWrapper/index.jsx";
 import { loginUser, loginWithGoogle } from '../../../services/authService.js';
 import SwalFire from '../../../utils/SwalFire.js';
+import { FEATURES } from '../../../config/features.js';
 // No longer need to import GoogleLogo here as it's handled by FormAuthWrapper
 
 function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async ({ email, password }) => {
+        if (!FEATURES.ENABLE_EMAIL_PASSWORD_AUTH) return;
         try {
             await loginUser(email, password);
             SwalFire.success("Sucesso", "Login realizado com sucesso!");

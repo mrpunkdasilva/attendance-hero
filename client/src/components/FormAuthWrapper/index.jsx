@@ -1,9 +1,8 @@
 import React, {useRef} from 'react';
 import "./styles/main.scss";
 import usePasswordVisibility from "./hooks/usePasswordVisibility.js";
-import useHandleValidateForm from "./hooks/useHandleValidateForm.js"
+import { FEATURES } from '../../config/features.js';
 import { FcGoogle } from 'react-icons/fc'; // Import Google icon from react-icons/fc
-import { Eye, EyeOff } from 'lucide-react'; // Import Lucide icons for password visibility
 
 const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth, handleGoogleLogin}) => {
     const [IconComponent, showPassword, togglePasswordVisibility] = usePasswordVisibility();
@@ -22,85 +21,89 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth, handleGoogleL
                 className="form-control"
                 onSubmit={(event) => {
                     event.preventDefault();
-                    const formData = new FormData(formRef.current);
-                    const email = formData.get('email');
-                    const password = formData.get('password');
-                    handleFormAuth({ email, password });
+                    if (FEATURES.ENABLE_EMAIL_PASSWORD_AUTH) {
+                        const formData = new FormData(formRef.current);
+                        const email = formData.get('email');
+                        const password = formData.get('password');
+                        handleFormAuth({ email, password });
+                    }
                 }}
                 ref={formRef}
             >
-                <p>
-                    <small>
-                        * Todos os campos com asteriscos são obrigatórios.
-                    </small>
-                </p>
+                {FEATURES.ENABLE_EMAIL_PASSWORD_AUTH && (
+                    <>
+                        <p>
+                            <small>
+                                * Todos os campos com asteriscos são obrigatórios.
+                            </small>
+                        </p>
 
-                <div className={"container-wrapper"}>
-                    {
-                        typeAuth === "register" && (
+                        <div className={"container-wrapper"}>
+                            {
+                                typeAuth === "register" && (
+                                    <div className="form-group">
+                                        <label htmlFor="name">* Nome</label>
+                                        <input
+                                            className="input-field"
+                                            type="text"
+                                            placeholder="Nome"
+                                            name="name"
+                                            required
+                                            pattern="[a-zA-Z\s]{5,}"
+                                            title="Por favor, informe um nome válido."
+                                        />
+                                    </div>
+                                )
+                            }
                             <div className="form-group">
-                                <label htmlFor="name">* Nome</label>
+                                <label htmlFor="email">* E-mail</label>
                                 <input
                                     className="input-field"
-                                    type="text"
-                                    placeholder="Nome"
-                                    name="name"
+                                    type="email"
+                                    placeholder="E-mail"
+                                    name="email"
                                     required
-                                    pattern="[a-zA-Z\s]{5,}"
-                                    title="Por favor, informe um nome válido."
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
+                                    title="Por favor, informe um e-mail válido."
                                 />
                             </div>
-                        )
-                    }
-                    <div className="form-group">
-                        <label htmlFor="email">* E-mail</label>
-                        <input
-                            className="input-field"
-                            type="email"
-                            placeholder="E-mail"
-                            name="email"
-                            required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
-                            title="Por favor, informe um e-mail válido."
-                        />
-                    </div>
-                    <div className="form-group-password">
-                        <label htmlFor="password">* Password</label>
-                        <div className={"group"}>
-                            <input
-                                className="input-field"
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="Senha"
-                                required
-                                pattern="(?=.*[a-zA-Z])(?=.*\d).{8,}"
-                                title="Senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número."
-                            />
-                            <button
-                                className="btn-visibility-password"
-                                type="button"
-                                onClick={togglePasswordVisibility}
-                            >
-                                <IconComponent size={24} />
-                            </button>
+                            <div className="form-group-password">
+                                <label htmlFor="password">* Password</label>
+                                <div className={"group"}>
+                                    <input
+                                        className="input-field"
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        placeholder="Senha"
+                                        required
+                                        pattern="(?=.*[a-zA-Z])(?=.*\d).{8,}"
+                                        title="Senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número."
+                                    />
+                                    <button
+                                        className="btn-visibility-password"
+                                        type="button"
+                                        onClick={togglePasswordVisibility}
+                                    >
+                                        <IconComponent size={24} />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
-
-                </div>
-
-                <button
-                    type="submit"
-                    className="btn-auth-primary"
-                    disabled={false}
-                >
-                    {typeAuth.toLowerCase() === "login" ? "Login" : "Sign up"}
-                </button>
+                        <button
+                            type="submit"
+                            className="btn-auth-primary"
+                            disabled={false}
+                        >
+                            {typeAuth.toLowerCase() === "login" ? "Login" : "Sign up"}
+                        </button>
+                    </>
+                )}
 
 
                 {handleGoogleLogin && (
                     <>
-                        <div className={"separator"}></div> {/* Add a separator before Google button */}
+                        {FEATURES.ENABLE_EMAIL_PASSWORD_AUTH && <div className={"separator"}></div>} {/* Add a separator before Google button if email auth is enabled */}
                         <button
                             type="button"
                             className="btn-auth-google"
@@ -112,15 +115,18 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth, handleGoogleL
                     </>
                 )}
 
-                <div className={"separator"}></div>
-
-                <a
-                    href={`/${typeAuth.toLowerCase() === "login" ? "register" : "login"}`}
-                    type={"button"}
-                    className={"btn-auth-secondary"}
-                >
-                    {typeAuth.toLowerCase() === "login" ? "Sign up" : "Login"}
-                </a>
+                {((typeAuth === "login" && FEATURES.ENABLE_SIGNUP) || (typeAuth === "register")) && (
+                    <>
+                        <div className={"separator"}></div>
+                        <a
+                            href={`/auth/${typeAuth.toLowerCase() === "login" ? "register" : "login"}`}
+                            type={"button"}
+                            className={"btn-auth-secondary"}
+                        >
+                            {typeAuth.toLowerCase() === "login" ? "Sign up" : "Login"}
+                        </a>
+                    </>
+                )}
             </form>
         </div>
     );
