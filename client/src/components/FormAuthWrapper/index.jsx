@@ -1,10 +1,12 @@
-import {useRef} from 'react';
+import React, {useRef} from 'react';
 import "./styles/main.scss";
 import usePasswordVisibility from "./hooks/usePasswordVisibility.js";
 import useHandleValidateForm from "./hooks/useHandleValidateForm.js"
+import { FcGoogle } from 'react-icons/fc'; // Import Google icon from react-icons/fc
+import { Eye, EyeOff } from 'lucide-react'; // Import Lucide icons for password visibility
 
-const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
-    const [iconPassword, showPassword, togglePasswordVisibility] = usePasswordVisibility();
+const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth, handleGoogleLogin}) => {
+    const [IconComponent, showPassword, togglePasswordVisibility] = usePasswordVisibility();
     const formRef = useRef(null);
 
     return (
@@ -18,7 +20,13 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
             <form
                 action={action}
                 className="form-control"
-                onSubmit={() => handleFormAuth(formRef)}
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    const formData = new FormData(formRef.current);
+                    const email = formData.get('email');
+                    const password = formData.get('password');
+                    handleFormAuth({ email, password });
+                }}
                 ref={formRef}
             >
                 <p>
@@ -45,7 +53,7 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
                         )
                     }
                     <div className="form-group">
-                        <label htmlFor="name">* E-mail</label>
+                        <label htmlFor="email">* E-mail</label>
                         <input
                             className="input-field"
                             type="email"
@@ -57,7 +65,7 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
                         />
                     </div>
                     <div className="form-group-password">
-                        <label htmlFor="name">* Password</label>
+                        <label htmlFor="password">* Password</label>
                         <div className={"group"}>
                             <input
                                 className="input-field"
@@ -73,10 +81,7 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
                                 type="button"
                                 onClick={togglePasswordVisibility}
                             >
-                                <img
-                                    className="icon-interface"
-                                    src={iconPassword} alt="Icone de mostrar a senha"
-                                />
+                                <IconComponent size={24} />
                             </button>
                         </div>
 
@@ -88,14 +93,24 @@ const FormAuthWrapper = ({title, typeAuth, action, handleFormAuth}) => {
                     type="submit"
                     className="btn-auth-primary"
                     disabled={false}
-                    onClick={(event) => {
-                        event.preventDefault();
-                        useHandleValidateForm(formRef, typeAuth)
-                    }}
                 >
                     {typeAuth.toLowerCase() === "login" ? "Login" : "Sign up"}
                 </button>
 
+
+                {handleGoogleLogin && (
+                    <>
+                        <div className={"separator"}></div> {/* Add a separator before Google button */}
+                        <button
+                            type="button"
+                            className="btn-auth-google"
+                            onClick={handleGoogleLogin}
+                        >
+                            <FcGoogle size={24} style={{ marginRight: '10px' }} /> {/* Using FcGoogle icon */}
+                            Login with Google
+                        </button>
+                    </>
+                )}
 
                 <div className={"separator"}></div>
 

@@ -6,20 +6,28 @@ import logo from '../../assets/logos/main/AttendaceHero.svg';
 import SwalFire from '../../utils/SwalFire.js';
 import { db } from '../../services/firebase.js';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import { logoutUser } from '../../services/authService.js'; // Import logoutUser
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './styles.scss';
 
-const GUEST_USER_ID = "guest_user_mvp";
-
 const Home = () => {
+  const { currentUser } = useAuth();
   const [data, setData] = useState(semestersData);
   const [activeSemesterId, setActiveSemesterId] = useState(4);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // Persistence: Load from Firestore on mount
   useEffect(() => {
     const loadData = async () => {
+      if (!currentUser) { // Only load data if user is authenticated
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        const docRef = doc(db, "userAttendance", GUEST_USER_ID);
+        const docRef = doc(db, "userAttendance", currentUser.uid);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -30,6 +38,9 @@ const Home = () => {
             return savedSemester ? { ...mockSemester, ...savedSemester } : mockSemester;
           });
           setData(mergedData);
+        } else {
+          // If no data exists for this user, save initial mock data
+          await saveToFirestore(semestersData, currentUser.uid);
         }
       } catch (error) {
         console.error("Error loading from Firestore:", error);
@@ -39,15 +50,27 @@ const Home = () => {
     };
 
     loadData();
-  }, []);
+  }, [currentUser]); // Re-run when currentUser changes
 
   // Persistence: Save to Firestore
-  const saveToFirestore = async (newData) => {
+  const saveToFirestore = async (newData, uid) => {
+    if (!uid) return; // Don't save if no user
     try {
-      const docRef = doc(db, "userAttendance", GUEST_USER_ID);
+      const docRef = doc(db, "userAttendance", uid);
       await setDoc(docRef, { semesters: newData }, { merge: true });
     } catch (error) {
       console.error("Error saving to Firestore:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      navigate('/auth/login'); // Redirect to login page after logout
+      SwalFire.success("Logout", "Você foi desconectado com sucesso!");
+    } catch (error) {
+      console.error("Error logging out:", error);
+      SwalFire.error("Erro", "Não foi possível desconectar.");
     }
   };
 
@@ -62,6 +85,11 @@ const Home = () => {
   };
 
   const toggleAbsence = async (semesterId, disciplineName, absenceIndex) => {
+    if (!currentUser) { // Prevent changes if not authenticated
+      SwalFire.error("Erro", "Você precisa estar logado para registrar faltas.");
+      return;
+    }
+    
     let alerted = false;
     const newData = data.map(semester => {
       if (semester.id === semesterId) {
@@ -95,7 +123,7 @@ const Home = () => {
     });
     
     setData(newData);
-    await saveToFirestore(newData);
+    await saveToFirestore(newData, currentUser.uid);
   };
 
   // Gamification Logic: Calculate Global Rank
@@ -146,6 +174,7 @@ const Home = () => {
       >
         <img src={logo} alt="Attendance Hero" className="main-logo" />
         <p className="subtitle">Your attendance, your control.</p>
+        <button className="logout-button" onClick={handleLogout}>Logout</button> {/* Logout Button */}
       </motion.header>
 
       <div className="dashboard-grid">

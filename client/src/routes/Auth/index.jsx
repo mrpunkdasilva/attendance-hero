@@ -1,11 +1,5 @@
-/*
-* @module routes
-*/
 import Route from "../Route.js";
 
-/**
- * @name Pages
- */
 import Register from "../../pages/Auth/Register/index.jsx";
 import Login    from "../../pages/Auth/Login/index.jsx";
 
@@ -22,13 +16,18 @@ class RoutesAuth extends Route {
      */
     static routes = [
         {
-            path: "/register",
-            element: <Register/>,
+            path: "auth",
+            children: [
+                {
+                    path: "register",
+                    element: <Register/>,
+                },
+                {
+                    path: "login",
+                    element: <Login/>,
+                }
+            ],
         },
-        {
-            path: "/login",
-            element: <Login/>,
-        }
     ];
 }
 

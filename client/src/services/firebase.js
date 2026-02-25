@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -17,5 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
+const auth = getAuth(app); // Initialize Firebase Authentication
 
-export { db, analytics };
+export { db, analytics, auth };

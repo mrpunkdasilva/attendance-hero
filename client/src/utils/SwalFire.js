@@ -34,6 +34,32 @@ class SwalFire {
             }
         } );
     }
+
+    success(title, text) {
+        this.MySwal.fire( {
+            icon : "success",
+            title : title,
+            text : text,
+            confirmButtonText : "FECHAR",
+            showCancelButton : false,
+            showCloseButton : false,
+            customClass: {
+                container: 'swal-custom-container',
+                popup: 'swal-custom-popup',
+                title: 'swal-custom-title',
+                htmlContainer: 'swal-custom-text',
+                confirmButton: 'swal-custom-confirm-btn',
+                icon: 'swal-custom-icon-success' // Custom class for success icon
+            },
+            buttonsStyling: false,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        } );
+    }
 }
 
 export default new SwalFire();

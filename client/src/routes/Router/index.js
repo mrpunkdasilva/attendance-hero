@@ -32,7 +32,7 @@ class Router {
             ...RoutesGuest.getRoutes(),
 
             // @group Auth
-            ...Auth.getRoutes(),
+            ...Auth.getRoutes()
         ];
     }
 
