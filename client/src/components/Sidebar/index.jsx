@@ -1,14 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LayoutDashboard, GraduationCap, Settings, LogOut } from 'lucide-react';
+import { FEATURES } from '../../config/features.js';
 import './styles.scss';
 
 const Sidebar = ({ onLogout, activeItem = 'dashboard' }) => {
   const menuItems = [
-    { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
-    { id: 'academic', icon: <GraduationCap size={20} />, label: 'Academic' },
-    { id: 'settings', icon: <Settings size={20} />, label: 'Settings' },
-  ];
+    { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', enabled: true },
+    { id: 'academic', icon: <GraduationCap size={20} />, label: 'Academic', enabled: FEATURES.ENABLE_ACADEMIC_PAGE },
+    { id: 'settings', icon: <Settings size={20} />, label: 'Settings', enabled: FEATURES.ENABLE_SETTINGS_PAGE },
+  ].filter(item => item.enabled);
 
   return (
     <motion.aside 
