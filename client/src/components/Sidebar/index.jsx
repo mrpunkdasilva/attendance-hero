@@ -4,7 +4,7 @@ import { LayoutDashboard, GraduationCap, Settings, LogOut } from 'lucide-react';
 import { FEATURES } from '../../config/features.js';
 import './styles.scss';
 
-const Sidebar = ({ onLogout, activeItem = 'dashboard' }) => {
+const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
   const menuItems = [
     { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', enabled: true },
     { id: 'academic', icon: <GraduationCap size={20} />, label: 'Academic', enabled: FEATURES.ENABLE_ACADEMIC_PAGE },
@@ -13,7 +13,7 @@ const Sidebar = ({ onLogout, activeItem = 'dashboard' }) => {
 
   return (
     <motion.aside 
-      className="sidebar"
+      className={`sidebar ${className}`}
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.8, type: 'spring' }}

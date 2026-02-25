@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import Logo from '../Logo/index.jsx';
 import './styles.scss';
 
-const Header = () => {
+const Header = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <motion.header 
       className="home-header"
@@ -11,6 +12,9 @@ const Header = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, type: 'spring' }}
     >
+      <button className="menu-toggle" onClick={toggleSidebar}>
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
       <Logo />
     </motion.header>
   );

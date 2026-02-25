@@ -10,9 +10,11 @@
   gap: 1em;
 
   .brand {
+    flex-direction: column;
     background: transparent;
     border-bottom: none;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
 

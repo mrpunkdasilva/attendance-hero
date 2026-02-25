@@ -8,11 +8,21 @@
   flex-direction: column;
   padding: 2rem 1rem;
   gap: 2rem;
-  position: fixed; // Mudar de sticky para fixed
+  position: fixed;
   top: 80px;
   left: 0;
   z-index: 900;
-  overflow-y: auto; // Caso os itens do menu cresçam demais
+  overflow-y: auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 1024px) {
+    transform: translateX(-100%); // Escondido no mobile por padrão
+
+    &.open {
+      transform: translateX(0);
+      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.8);
+    }
+  }
 
   .sidebar-menu {
     flex: 1;

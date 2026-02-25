@@ -17,6 +17,7 @@ const Home = () => {
   const [data, setData] = useState(semestersData);
   const [activeSemesterId, setActiveSemesterId] = useState(4);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Persistence: Load from Firestore on mount
@@ -166,10 +167,16 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <Header />
+      <Header 
+        isSidebarOpen={isSidebarOpen} 
+        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+      />
 
       <div className="app-layout">
-        <Sidebar onLogout={handleLogout} />
+        <Sidebar 
+          onLogout={handleLogout} 
+          className={isSidebarOpen ? 'open' : ''} 
+        />
 
         <main className="main-content">
           <div className="dashboard-grid">
