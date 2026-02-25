@@ -6,10 +6,11 @@ import SwalFire from '../../utils/SwalFire.js';
 import { db } from '../../services/firebase.js';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext.jsx';
-import { logoutUser } from '../../services/authService.js'; // Import logoutUser
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { logoutUser } from '../../services/authService.js';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Header/index.jsx';
 import Sidebar from '../Sidebar/index.jsx';
+import SemesterTabs from '../SemesterTabs/index.jsx';
 import './styles.scss';
 
 const Home = () => {
@@ -18,12 +19,11 @@ const Home = () => {
   const [activeSemesterId, setActiveSemesterId] = useState(4);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
-  // Persistence: Load from Firestore on mount
   useEffect(() => {
     const loadData = async () => {
-      if (!currentUser) { // Only load data if user is authenticated
+      if (!currentUser) {
         setIsLoading(false);
         return;
       }
@@ -34,44 +34,41 @@ const Home = () => {
 
         if (docSnap.exists()) {
           const savedData = docSnap.data().semesters;
-          // Merge logic: ensure all semesters from mockData are present
           const mergedData = semestersData.map(mockSemester => {
             const savedSemester = savedData.find(s => s.id === mockSemester.id);
             return savedSemester ? { ...mockSemester, ...savedSemester } : mockSemester;
           });
           setData(mergedData);
         } else {
-          // If no data exists for this user, save initial mock data
           await saveToFirestore(semestersData, currentUser.uid);
         }
       } catch (error) {
-        console.error("Error loading from Firestore:", error);
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
     };
 
     loadData();
-  }, [currentUser]); // Re-run when currentUser changes
+  }, [currentUser]);
 
-  // Persistence: Save to Firestore
   const saveToFirestore = async (newData, uid) => {
-    if (!uid) return; // Don't save if no user
+    if (!uid) return;
     try {
       const docRef = doc(db, "userAttendance", uid);
       await setDoc(docRef, { semesters: newData }, { merge: true });
     } catch (error) {
-      console.error("Error saving to Firestore:", error);
+      console.error(error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await logoutUser();
-      navigate('/auth/login'); // Redirect to login page after logout
+      navigate('/auth/login');
       SwalFire.success("Logout", "Você foi desconectado com sucesso!");
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error(error);
       SwalFire.error("Erro", "Não foi possível desconectar.");
     }
   };
@@ -87,7 +84,7 @@ const Home = () => {
   };
 
   const toggleAbsence = async (semesterId, disciplineName, absenceIndex) => {
-    if (!currentUser) { // Prevent changes if not authenticated
+    if (!currentUser) {
       SwalFire.error("Erro", "Você precisa estar logado para registrar faltas.");
       return;
     }
@@ -128,7 +125,6 @@ const Home = () => {
     await saveToFirestore(newData, currentUser.uid);
   };
 
-  // Gamification Logic: Calculate Global Rank
   const globalStats = useMemo(() => {
     if (!activeSemester) return { rank: '-', percentage: '0', color: '#fff', totalAbsences: 0, totalClasses: 0 };
     
@@ -209,19 +205,12 @@ const Home = () => {
               </div>
             </Tilt>
 
-            <nav className="semester-tabs">
-              {data.map(semester => (
-                <motion.button
-                  key={semester.id}
-                  whileHover={{ scale: 1.05, boxShadow: `0px 0px 8px ${globalStats.color}` }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`tab-btn ${activeSemesterId === semester.id ? 'active' : ''}`}
-                  onClick={() => setActiveSemesterId(semester.id)}
-                >
-                  {semester.name}
-                </motion.button>
-              ))}
-            </nav>
+            <SemesterTabs 
+              semesters={data} 
+              activeSemesterId={activeSemesterId} 
+              onSemesterChange={setActiveSemesterId} 
+              color={globalStats.color}
+            />
           </div>
 
           <motion.section 
