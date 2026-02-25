@@ -8,9 +8,11 @@
   flex-direction: column;
   padding: 2rem 1rem;
   gap: 2rem;
-  position: sticky;
+  position: fixed; // Mudar de sticky para fixed
   top: 80px;
-  z-index: 90;
+  left: 0;
+  z-index: 900;
+  overflow-y: auto; // Caso os itens do menu cresçam demais
 
   .sidebar-menu {
     flex: 1;
@@ -32,6 +34,8 @@
     transition: all 0.3s ease;
     font-family: 'Lexend', sans-serif;
     font-size: 0.95rem;
+    width: 100%;
+    text-align: left;
 
     svg {
       transition: all 0.3s ease;
