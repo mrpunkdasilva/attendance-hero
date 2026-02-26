@@ -22,3 +22,13 @@ body {
   background-color: #0d0d0d;
   color: #fff;
 }
+
+::selection {
+  background: #44D62C;
+  color: #0A0A0A;
+}
+
+::-moz-selection {
+  background: #44D62C;
+  color: #0A0A0A;
+}

@@ -1,8 +1,5 @@
-    <p align="center">
-     
-<img src="https://github.com/MrNullus/attendance-hero/blob/92bf9cdb6bbe1e2ca933547c3109ffb174f62d27/public/logos/icon/iconPrimary.svg" width="500px" height="180px" />
-
-     
+<p align="center">
+<img src="https://raw.githubusercontent.com/mrpunkdasilva/attendance-hero/main/client/public/logos/main/AttendaceHero.svg" width="500px" height="180px" />
 </p>
 
 ```       _   _                 _                      _    _                
@@ -13,34 +10,62 @@
  /_/    \_\__|\__\___|_| |_|\__,_|\__,_|_| |_|\___\___|_|  |_|\___|_|  \___/ 
 ```
 
-AttendanceHero é um webapp que permite aos estudantes gerenciar e acompanhar sua presença em sala de aula. Com recursos poderosos e uma interface intuitiva, o AttendanceHero ajuda os alunos a se manterem organizados e no controle de sua frequência acadêmica.
+Attendance Hero é um ecossistema digital com estética cyberpunk projetado para que estudantes tenham controle total sobre sua vida acadêmica. Com uma interface inspirada em interfaces de comando e games, ele transforma o acompanhamento de frequência em uma experiência visual e intuitiva.
 
 ---
 
-## Recursos Principais 📋
+## Tecnologias Utilizadas
 
-- **Registro de Presença**: Os alunos podem facilmente registrar sua presença em cada aula, com opções para marcar chegadas atrasadas ou saídas antecipadas. 📝
-- **Histórico de Frequência**: O webapp mantém um registro detalhado da frequência do aluno, permitindo visualizar o comparecimento ao longo do tempo. 📊
-- **Cálculo Automático**: O AttendanceHero calcula automaticamente a porcentagem de presença com base nas regras definidas pela instituição de ensino. 🧮
-- **Notificações de Alerta**: O webapp envia lembretes e notificações quando o aluno está se aproximando do limite de faltas permitido. 🔔
-- **Exportação de Dados**: Os estudantes podem exportar seus registros de frequência em formatos compatíveis, como CSV ou PDF, para compartilhar com professores ou administradores. 💾
+- **Frontend**: React.js com Vite
+- **Estilização**: SCSS (Sass) e Material UI (MUI)
+- **Animações**: Framer Motion
+- **Banco de Dados & Auth**: Firebase (Firestore & Google Auth)
+- **Gráficos**: Recharts
+- **Componentes**: Lucide React
 
-## Como Usar 🤔
+## Recursos Atuais
 
-1. Acesse o webapp AttendanceHero em [www.attendancehero.com](https://www.attendancehero.com). 🌐
-2. Crie uma conta utilizando seu e-mail e informações de estudante. 📧
-3. Configure as regras de presença conforme os requisitos da sua instituição de ensino. ⚙️
-4. Registre sua presença em cada aula com um clique. 👍
-5. Acompanhe seu histórico de frequência e receba alerta sobre possíveis problemas. 📈
-6. Exporte seus dados de presença sempre que necessário. 💼
+- **Autenticação Segura**: Login simplificado e rápido utilizando exclusivamente Google Accounts.
+- **Dashboard de Comando**: Visualização 3D do status global do aluno, incluindo Rank de classe (S a F) baseado na assiduidade.
+- **Seletor de Ciclos**: Navegação focada que permite visualizar um semestre por vez, mantendo a interface limpa e organizada.
+- **Controle de Faltas**: Registro de presença em tempo real com indicadores de risco (Baixo, Médio, Alto e WF).
+- **Central de Análise (Stats)**: Gráficos dinâmicos que mostram a distribuição de faltas por disciplina e a margem de segurança global do semestre.
+- **Interface Responsiva**: Design adaptável com Sidebar retrátil, otimizado para desktop e dispositivos móveis.
 
-## Por que escolher o AttendanceHero? 🤩
+## Como Configurar o Projeto
 
-- **Praticidade**: O AttendanceHero torna o gerenciamento da presença uma tarefa simples e rápida, evitando o estresse de acompanhar manualmente. 😌
-- **Precisão**: Cálculos automatizados garantem que sua frequência seja registrada com exatidão, evitando, erros. 🎯
-- **Organização**: Ter todos os registros de presença em um único lugar ajuda a manter sua vida acadêmica organizada. 📁
-- **Controle**: O webapp coloca o controle da sua frequência em suas próprias mãos, permitindo que você se mantenha no topo das suas obrigações. 👑
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/mrpunkdasilva/attendance-hero.git
+   ```
+2. Instale as dependências:
+   ```bash
+   cd client
+   npm install
+   ```
+3. Configure as variáveis de ambiente:
+   Crie um arquivo `.env` na pasta `client` com suas credenciais do Firebase:
+   ```env
+   VITE_FIREBASE_API_KEY=sua_key
+   VITE_FIREBASE_AUTH_DOMAIN=seu_dominio
+   VITE_FIREBASE_PROJECT_ID=seu_id
+   VITE_FIREBASE_STORAGE_BUCKET=seu_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
+   VITE_FIREBASE_APP_ID=seu_app_id
+   ```
+4. Inicie o ambiente de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-## Entre em Contato 📩
+## Estrutura de Diretórios
 
-Se você tiver dúvidas, sugestões ou feedback sobre o AttendanceHero, entre em contato conosco pelo e-mail support@attendancehero.com ou acesse nosso site em [www.attendancehero.com](https://www.attendancehero.com).
+- `/src/components`: Componentes modulares e reutilizáveis (Header, Sidebar, SemesterTabs, etc).
+- `/src/pages`: Páginas principais da aplicação (Login, Home, Stats).
+- `/src/services`: Integração com Firebase e serviços de autenticação.
+- `/src/config`: Configurações globais e Feature Flags.
+- `/src/assets`: Fontes personalizadas (Comfortaa, Lexend) e ativos visuais.
+
+## Licença
+
+Este projeto é de uso pessoal e privado de [mr punk da silva](https://github.com/mrpunkdasilva).

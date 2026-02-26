@@ -1,26 +1,37 @@
-
 .auth-container {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 10%, #1a1a1a 0%, #050505 100%);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+  gap: 1em;
 
   .brand {
-    background: rgba(0, 0, 0, 0.96);
-    border-bottom: 4px solid #44D62C;
+    flex-direction: column;
+    background: transparent;
+    border-bottom: none;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
 
     figure {
-      width: 100%;
-      height: 300px;
+      width: clamp(200px, 50vw, 300px);
+      height: auto;
       display: flex;
       align-content: center;
       justify-content: center;
       align-items: center;
-      padding: 4rem;
+      padding: 0;
 
       img {
-        width: 300px;
-        height: 300px;
+        width: 100%;
+        height: auto;
         object-fit: contain;
+        filter: drop-shadow(0 0 15px rgba(68, 214, 44, 0.2));
       }
     }
   }
@@ -32,24 +43,15 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    max-width: 450px;
   }
+
 
   .wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
-
-    .form-polyfill {
-      display: block;
-      float: left;
-      clear: both;
-      z-index: -1;
-
-      background-image: url('/src/assets/images/polygon.png');
-      width: 100%;
-      height: 200px;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+    align-items: center;
   }
 }

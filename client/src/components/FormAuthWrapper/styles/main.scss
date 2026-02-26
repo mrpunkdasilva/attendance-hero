@@ -5,27 +5,180 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 
-  background: rgb(254 252 252 / 0%);
-  max-width: 600px;
-  border-radius: 0.4rem;
-  box-shadow: -1px 0px 2px 0px #00000038;
-  min-height: 60vh;
-  padding: 3rem 1rem;
-  margin-bottom: 4rem;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  background: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(8px);
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(68, 214, 44, 0.1);
+  min-height: auto;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(68, 214, 44, 0.3);
+
+  h1 {
+    font-family: 'Comfortaa', cursive;
+    color: #44D62C;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(68, 214, 44, 0.5);
+    font-size: 2rem;
+  }
+
+  .separator {
+    background-color: rgba(68, 214, 44, 0.3);
+    width: 80%;
+    height: 1px;
+    border-radius: 6px;
+    margin: 0.5rem 0;
+  }
+
+  .form-control {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    p {
+      text-align: center;
+      color: #888;
+      font-size: 0.8rem;
+    }
+
+    .container-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      height: auto;
+
+      label {
+        color: #eee;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+
+    .input-field {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(68, 214, 44, 0.2);
+      border-radius: 6px;
+      padding: 0.8rem 1rem;
+      color: #fff;
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #44D62C;
+        box-shadow: 0 0 8px rgba(68, 214, 44, 0.6);
+      }
+    }
+
+    .form-group-password {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        input[name="password"] {
+          width: calc(100% - 50px);
+        }
+      }
+
+      .btn-visibility-password {
+        color: white;
+        width: 50px;
+        height: 44px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(68, 214, 44, 0.2);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          border-color: #44D62C;
+          box-shadow: 0 0 8px rgba(68, 214, 44, 0.4);
+        }
+
+        .icon-interface {
+          width: 24px;
+          height: 24px;
+          color: #fff !important;
+        }
+      }
+    }
+  }
 
   .btn-auth-primary {
     border-radius: 6px;
     width: 100%;
-    height: 50px;
-    background: #0A0A0AFF;
-    color: #44D62C;
+    padding: 1rem;
+    background: #44D62C;
+    color: #0A0A0A;
     font-weight: bold;
-    font-size: 1.2em;
-    border-style: solid;
-    border-bottom: 5px solid #44D62C;
+    font-size: 1.1em;
+    border: none;
+    box-shadow: 0 0 15px rgba(68, 214, 44, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover {
+      box-shadow: 0 0 25px rgba(68, 214, 44, 0.8);
+      transform: translateY(-2px);
+    }
   }
 
+  .btn-auth-google {
+    border-radius: 6px;
+    width: 100%;
+    padding: 1rem;
+    background: #1A1A1A;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:hover {
+      background: #2A2A2A;
+      border-color: #44D62C;
+      box-shadow: 0 0 10px rgba(68, 214, 44, 0.4);
+    }
+  }
+
+  .btn-auth-secondary {
+    color: #44D62C;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: #64FFDA;
+    }
+  }
 }
