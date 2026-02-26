@@ -47,6 +47,71 @@
     }
   }
 
+  /* KPI Grid Styles */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1300px;
+
+    .kpi-card {
+      background: rgba(17, 17, 17, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(68, 214, 44, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      .icon { color: #44D62C; }
+      
+      .info {
+        display: flex;
+        flex-direction: column;
+        
+        .badge {
+          font-size: 0.6rem;
+          font-weight: 800;
+          padding: 2px 8px;
+          border-radius: 4px;
+          margin-bottom: 4px;
+          display: inline-block;
+          width: fit-content;
+          letter-spacing: 1px;
+        }
+
+        .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .value { font-size: 1.5rem; color: #fff; font-family: 'Comfortaa', cursive; }
+      }
+
+      &:hover { border-color: #44D62C; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(68, 214, 44, 0.2); }
+
+      &.alert {
+        border-color: rgba(255, 82, 82, 0.3);
+        .icon { color: #FF5252; }
+        &:hover { border-color: #FF5252; box-shadow: 0 5px 15px rgba(255, 82, 82, 0.2); }
+      }
+
+      &.safety {
+        border-color: rgba(100, 255, 218, 0.3);
+        .icon { color: #64FFDA; }
+        &:hover { border-color: #64FFDA; box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2); }
+      }
+
+      &.score {
+        &:hover { 
+          border-color: var(--badge-color); 
+          box-shadow: 0 5px 15px rgba(var(--badge-color), 0.2); 
+        }
+      }
+    }
+  }
+
   /* --- 3D Hero Card --- */
   .hero-card-tilt {
     transform-style: preserve-3d;
@@ -162,6 +227,7 @@
 
   .attendance-content {
     width: 100%;
+    max-width: 1300px;
     z-index: 5;
 
     .glass-panel {

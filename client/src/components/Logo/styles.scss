@@ -1,11 +1,11 @@
 .logo-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-end; // Alinha os itens à direita
+  gap: 0.2rem;
 
   .main-logo {
-    height: 80px;
+    height: 40px;
     filter: drop-shadow(0 0 10px rgba(68, 214, 44, 0.3));
     transition: all 0.3s ease;
 
@@ -18,9 +18,19 @@
   .subtitle {
     color: #44D62C;
     font-family: 'Comfortaa', cursive;
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     opacity: 0.8;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .main-logo {
+      height: 32px;
+    }
+    .subtitle {
+      display: none;
+    }
   }
 }
