@@ -164,7 +164,7 @@ const Stats = () => {
                   <strong className="value">{kpis.safetyMargin}</strong>
                 </div>
               </div>
-              <div className="kpi-card score" style={{ borderLeft: `4px solid ${badgeInfo.color}` }}>
+              <div className="kpi-card score" style={{ borderLeft: `4px solid ${badgeInfo.color}`, '--badge-color': badgeInfo.color }}>
                 <Zap size={20} className="icon" style={{ color: badgeInfo.color }} />
                 <div className="info">
                   <div className="badge" style={{ backgroundColor: `${badgeInfo.color}22`, color: badgeInfo.color }}>{badgeInfo.label}</div>

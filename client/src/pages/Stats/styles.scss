@@ -68,6 +68,14 @@
         .icon { color: #64FFDA; }
         &:hover { border-color: #64FFDA; box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2); }
       }
+
+      &.score {
+        &:hover { 
+          border-color: var(--badge-color); 
+          box-shadow: 0 5px 15px rgba(var(--badge-color), 0.2); 
+          filter: drop-shadow(0 0 5px var(--badge-color));
+        }
+      }
     }
   }
 
