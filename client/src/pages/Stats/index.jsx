@@ -328,7 +328,7 @@ const Stats = () => {
               <div className="chart-card full-width">
                 <h3>FALTAS POR DISCIPLINA</h3>
                 <div className="chart-wrapper">
-                  <ResponsiveContainer width="100%" height={100}>
+                  <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={chartData} layout="vertical" margin={{ left: isMobile ? -20 : 40, right: isMobile ? 10 : 30, top: 20, bottom: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#333" horizontal={false} />
                       <XAxis type="number" stroke="#888" fontSize={12} tickLine={false} />
