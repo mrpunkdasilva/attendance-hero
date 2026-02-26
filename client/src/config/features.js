@@ -4,4 +4,5 @@ export const FEATURES = {
     ENABLE_ACADEMIC_PAGE: false,
     ENABLE_SETTINGS_PAGE: false,
     ENABLE_STATS_PAGE: true,
+    ENABLE_EXPORT_REPORT: false,
 };
