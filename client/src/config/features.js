@@ -5,4 +5,5 @@ export const FEATURES = {
     ENABLE_SETTINGS_PAGE: false,
     ENABLE_STATS_PAGE: true,
     ENABLE_EXPORT_REPORT: false,
+    ENABLE_WEEKLY_HEATMAP: false,
 };

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line } from 'recharts';
-import { AlertTriangle, CheckCircle2, ShieldCheck, Activity, Zap, Download, BrainCircuit, Shield, X } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, ShieldCheck, Activity, Zap, Download, BrainCircuit, Shield, X, Flame } from 'lucide-react';
 import { useMediaQuery } from '@mui/material';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
@@ -105,6 +105,20 @@ const Stats = () => {
       safetyMargin: Math.max(0, totalLimit - totalAbsences),
       attendanceScore: Math.round(attendanceScore)
     };
+  }, [activeSemester]);
+
+  const heatmapData = useMemo(() => {
+    const weekDays = ['SEG', 'TER', 'QUA', 'QUI', 'SEX'];
+    return weekDays.map((day, idx) => {
+      const discipline = activeSemester.disciplines[idx] || null;
+      const absences = discipline ? discipline.absences.filter(Boolean).length : 0;
+      return {
+        day,
+        discipline: discipline ? discipline.name : 'VAGO',
+        value: absences,
+        intensity: absences > 0 ? Math.min(absences / 5, 1) : 0
+      };
+    });
   }, [activeSemester]);
 
   const riskProjection = useMemo(() => {
@@ -278,6 +292,32 @@ const Stats = () => {
             </div>
 
             <div className="charts-grid">
+              {FEATURES.ENABLE_WEEKLY_HEATMAP && (
+                <div className="chart-card heatmap-card">
+                  <div className="card-title-wrapper">
+                    <Flame size={18} color="#44D62C" />
+                    <h3>MAPA DE CALOR SEMANAL</h3>
+                  </div>
+                  <div className="heatmap-grid">
+                    {heatmapData.map((item, index) => (
+                      <div key={index} className="heatmap-cell-wrapper">
+                        <div 
+                          className="heatmap-cell" 
+                          style={{ 
+                            backgroundColor: `rgba(68, 214, 44, ${item.intensity === 0 ? 0.05 : 0.2 + (item.intensity * 0.8)})`,
+                            borderColor: item.intensity > 0 ? '#44D62C' : 'rgba(255,255,255,0.05)'
+                          }}
+                        >
+                          <span className="value">{item.value}</span>
+                        </div>
+                        <span className="day-label">{item.day}</span>
+                        <span className="discipline-label">{item.discipline}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="chart-card">
                 <h3>EVOLUÇÃO HISTÓRICA (FALTAS)</h3>
                 <div className="chart-wrapper">
