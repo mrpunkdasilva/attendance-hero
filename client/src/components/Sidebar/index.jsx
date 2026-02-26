@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, GraduationCap, Settings, LogOut, BarChart } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, Settings, LogOut, BarChart, ScrollText } from 'lucide-react';
 import { FEATURES } from '../../config/features.js';
 import './styles.scss';
 
@@ -21,6 +21,13 @@ const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
       label: 'Stats', 
       enabled: FEATURES.ENABLE_STATS_PAGE,
       path: '/stats'
+    },
+    { 
+      id: 'protocols', 
+      icon: <ScrollText size={20} />, 
+      label: 'Protocols', 
+      enabled: FEATURES.ENABLE_PROTOCOLS_PAGE,
+      path: '/protocols'
     },
     { 
       id: 'academic', 
