@@ -1,15 +1,46 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { LayoutDashboard, GraduationCap, Settings, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LayoutDashboard, GraduationCap, Settings, LogOut, BarChart } from 'lucide-react';
 import { FEATURES } from '../../config/features.js';
 import './styles.scss';
 
 const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
+  const navigate = useNavigate();
+
   const menuItems = [
-    { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', enabled: true },
-    { id: 'academic', icon: <GraduationCap size={20} />, label: 'Academic', enabled: FEATURES.ENABLE_ACADEMIC_PAGE },
-    { id: 'settings', icon: <Settings size={20} />, label: 'Settings', enabled: FEATURES.ENABLE_SETTINGS_PAGE },
+    { 
+      id: 'dashboard', 
+      icon: <LayoutDashboard size={20} />, 
+      label: 'Dashboard', 
+      enabled: true,
+      path: '/'
+    },
+    { 
+      id: 'stats', 
+      icon: <BarChart size={20} />, 
+      label: 'Stats', 
+      enabled: FEATURES.ENABLE_STATS_PAGE,
+      path: '/stats'
+    },
+    { 
+      id: 'academic', 
+      icon: <GraduationCap size={20} />, 
+      label: 'Academic', 
+      enabled: FEATURES.ENABLE_ACADEMIC_PAGE,
+      path: '/academic'
+    },
+    { 
+      id: 'settings', 
+      icon: <Settings size={20} />, 
+      label: 'Settings', 
+      enabled: FEATURES.ENABLE_SETTINGS_PAGE,
+      path: '/settings'
+    },
   ].filter(item => item.enabled);
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <aside className={`sidebar ${className}`}>
@@ -18,6 +49,7 @@ const Sidebar = ({ onLogout, activeItem = 'dashboard', className = '' }) => {
           <button 
             key={item.id} 
             className={`menu-item ${activeItem === item.id ? 'active' : ''}`}
+            onClick={() => handleNavigation(item.path)}
           >
             {item.icon}
             <span>{item.label}</span>

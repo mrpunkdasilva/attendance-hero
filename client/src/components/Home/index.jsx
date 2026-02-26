@@ -266,7 +266,7 @@ const Home = () => {
 								</tr>
 								</thead>
 								<tbody>
-								<AnimatePresence mode="wait">
+								<AnimatePresence mode="popLayout">
 									{ activeSemester.disciplines.map( ( discipline , idx ) => {
 										const currentAbsences = discipline.absences.filter( Boolean ).length;
 										const percentage = (
